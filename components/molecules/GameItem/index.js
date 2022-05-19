@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import PropTypes from 'prop-types';
+import Image from "next/image";
+import Link from "next/link";
+import PropTypes from "prop-types";
 
 export default function GameItem(props) {
   const { thumbnail, title, category } = props;
@@ -20,12 +20,7 @@ export default function GameItem(props) {
           <div className="cover position-absolute bottom-0 m-32">
             <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
               <div className="game-icon mx-auto">
-                <Image
-                  src="/icon/game.svg"
-                  alt="Game Icon"
-                  width={54}
-                  height={36}
-                />
+                <Image src="/icon/game.svg" alt="Game Icon" width={54} height={36} />
               </div>
               <div>
                 <p className="fw-semibold text-white text-xl m-0">{title}</p>
@@ -46,7 +41,7 @@ GameItem.propTypes = {
 };
 
 GameItem.defaultProps = {
-  thumbnail: 'Thumbnail-1',
-  title: 'Game Title',
-  category: 'Game Type',
+  thumbnail: "Thumbnail-1",
+  title: "Game Title",
+  category: "Game Type",
 };

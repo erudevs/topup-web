@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export default function StepItem(props) {
   const {
@@ -32,8 +32,8 @@ StepItem.propTypes = {
 };
 
 StepItem.defaultProps = {
-  stepIcon: 'step-icon',
-  stepTitle: 'Step Title',
-  stepDesc1: 'Step Desc 1',
-  stepDesc2: 'Step Desc 2',
+  stepIcon: "step-icon",
+  stepTitle: "Step Title",
+  stepDesc1: "Step Desc 1",
+  stepDesc2: "Step Desc 2",
 };

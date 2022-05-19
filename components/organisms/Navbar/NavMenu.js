@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import Link from 'next/link';
+import PropTypes from "prop-types";
+import cx from "classnames";
+import Link from "next/link";
 
 export default function NavMenu(props) {
   const { title, active, href } = props;
   const classTitle = cx({
-    'nav-link': true,
+    "nav-link": true,
     active,
   });
   return (
@@ -27,5 +27,5 @@ NavMenu.propTypes = {
 
 NavMenu.defaultProps = {
   active: false,
-  href: '/',
+  href: "/",
 };

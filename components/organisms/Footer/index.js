@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import FooterItem from '../../molecules/FooterItem';
+import Image from "next/image";
+import FooterItem from "../../molecules/FooterItem";
 
 export default function Footer() {
   return (
@@ -24,27 +24,27 @@ export default function Footer() {
                 <FooterItem
                   title="Company"
                   listArrayItems={[
-                    { id: 1, name: 'About Us' },
-                    { id: 2, name: 'Press Release' },
-                    { id: 3, name: 'Terms of Use' },
-                    { id: 4, name: 'Privacy & Policy' },
+                    { id: 1, name: "About Us" },
+                    { id: 2, name: "Press Release" },
+                    { id: 3, name: "Terms of Use" },
+                    { id: 4, name: "Privacy & Policy" },
                   ]}
                 />
                 <FooterItem
                   title="Support"
                   listArrayItems={[
-                    { id: 1, name: 'Refund Policy' },
-                    { id: 2, name: 'Unlock Rewards' },
-                    { id: 3, name: 'Live Chatting' },
+                    { id: 1, name: "Refund Policy" },
+                    { id: 2, name: "Unlock Rewards" },
+                    { id: 3, name: "Live Chatting" },
                   ]}
                 />
                 <FooterItem
                   title="Connect"
                   listArrayItems={[
-                    { id: 1, name: 'hi@storegg.net' },
-                    { id: 2, name: 'team@store.gg' },
-                    { id: 3, name: 'Pasific 12, Jakarta Selatan' },
-                    { id: 4, name: '021 - 1122 - 9090' },
+                    { id: 1, name: "hi@storegg.net" },
+                    { id: 2, name: "team@store.gg" },
+                    { id: 3, name: "Pasific 12, Jakarta Selatan" },
+                    { id: 4, name: "021 - 1122 - 9090" },
                   ]}
                 />
               </div>

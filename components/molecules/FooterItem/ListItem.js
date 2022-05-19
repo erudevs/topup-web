@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import PropTypes from 'prop-types';
+import Link from "next/link";
+import PropTypes from "prop-types";
 
 export default function ListItem(props) {
   const { listTitle } = props;
@@ -19,5 +19,5 @@ ListItem.propTypes = {
 };
 
 ListItem.defaultProps = {
-  listTitle: 'List Title',
+  listTitle: "List Title",
 };

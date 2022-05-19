@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import ListItem from './ListItem';
+import PropTypes from "prop-types";
+import ListItem from "./ListItem";
 
 export default function FooterItem(props) {
   // eslint-disable-next-line react/prop-types
@@ -26,5 +26,5 @@ FooterItem.propTypes = {
 };
 
 FooterItem.defaultProps = {
-  title: 'Footer Item Title',
+  title: "Footer Item Title",
 };

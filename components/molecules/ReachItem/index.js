@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export default function ReachItem(props) {
   const { bigText, smallText, lastItem } = props;
@@ -29,7 +29,7 @@ ReachItem.propTypes = {
 };
 
 ReachItem.defaultProps = {
-  bigText: 'Big Text',
-  smallText: 'Small Text',
+  bigText: "Big Text",
+  smallText: "Small Text",
   lastItem: false,
 };

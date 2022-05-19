@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import Link from 'next/link';
+import PropTypes from "prop-types";
+import Link from "next/link";
 
 export default function Auth(props) {
   const { isLogin } = props;
