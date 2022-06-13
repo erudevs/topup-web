@@ -1,5 +1,7 @@
 import Link from "next/link";
 import PropTypes from "prop-types";
+import cx from "classnames";
+
 import CardIcon from "../../atoms/CardIcon";
 import LogoutIcon from "../../atoms/LogoutIcon";
 import MessageIcon from "../../atoms/MessageIcon";
@@ -8,9 +10,15 @@ import RewardIcon from "../../atoms/RewardIcon";
 import SettingIcon from "../../atoms/SettingIcon";
 import TransactionIcon from "../../atoms/TransactionIcon";
 
-export default function SidebarMenuItem({
-  itemName, itemLink, isActive,
-}) {
+export default function SidebarMenuItem(props) {
+  const { menuTitle, menuLink, isActive } = props;
+
+  const classItem = cx({
+    item: true,
+    "mb-30": true,
+    active: isActive,
+  });
+
   const getIconName = (iconName) => {
     switch (iconName) {
       case "Overview":
@@ -33,12 +41,12 @@ export default function SidebarMenuItem({
   };
 
   return (
-    <div className={`item mb-30 ${isActive ? "active" : ""}`}>
-      {getIconName(itemName)}
+    <div className={classItem}>
+      {getIconName(menuTitle)}
       <p className="item-title m-0">
-        <Link href={`${itemLink}`}>
+        <Link href={`${menuLink}`}>
           <a className="text-lg text-decoration-none" role="link">
-            {itemName}
+            {menuTitle}
           </a>
         </Link>
       </p>
@@ -47,9 +55,9 @@ export default function SidebarMenuItem({
 }
 
 SidebarMenuItem.propTypes = {
-  itemName: PropTypes.string.isRequired,
+  menuTitle: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
-  itemLink: PropTypes.string.isRequired,
+  menuLink: PropTypes.string.isRequired,
 };
 
 SidebarMenuItem.defaultProps = {

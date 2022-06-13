@@ -1,14 +1,15 @@
 import Image from "next/image";
 import PropTypes from "prop-types";
 
-export default function OverviewTopUpItem({ itemIcon, itemName, itemSpentTotal }) {
+export default function OverviewTopUpItem(props) {
+  const { itemIcon, children, itemSpentTotal } = props;
   return (
     <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
       <div className="categories-card">
         <div className="d-flex align-items-center mb-24">
           <Image src={`/icon/${itemIcon}.svg`} width={60} height={60} alt="Icon" />
           <p className="color-palette-1 mb-0 ms-12">
-            {itemName}
+            {children}
           </p>
         </div>
         <div>
@@ -22,6 +23,6 @@ export default function OverviewTopUpItem({ itemIcon, itemName, itemSpentTotal }
 
 OverviewTopUpItem.propTypes = {
   itemIcon: PropTypes.string.isRequired,
-  itemName: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   itemSpentTotal: PropTypes.string.isRequired,
 };

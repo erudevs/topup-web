@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps }) {
         crossOrigin="anonymous"
       >
       </Script>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Component {...pageProps} />
     </>
   );

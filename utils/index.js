@@ -1,46 +1,52 @@
 const getItemMenu = () => ([
   {
     id: 1,
-    name: "Overview",
+    title: "Overview",
     isActive: true,
     link: "/member",
   },
   {
     id: 2,
-    name: "Transactions",
+    title: "Transactions",
     isActive: false,
     link: "/member/transactions",
   },
   {
     id: 3,
-    name: "Messages",
+    title: "Messages",
     isActive: false,
     link: "/member/messages",
   },
   {
     id: 4,
-    name: "Card",
+    title: "Card",
     isActive: false,
     link: "/member/card",
   },
   {
     id: 5,
-    name: "Rewards",
+    title: "Rewards",
     isActive: false,
     link: "/member/rewards",
   },
   {
     id: 6,
-    name: "Settings",
+    title: "Settings",
     isActive: false,
     link: "/member/edit-profile",
   },
   {
     id: 7,
-    name: "Log Out",
+    title: "Log Out",
     link: "/logout",
   },
 ]);
 
+const formatNumber = new Intl.NumberFormat("id-ID", {
+  style: "currency",
+  currency: "IDR",
+  minimumFractionDigits: 0,
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { getItemMenu };
+export { getItemMenu, formatNumber };

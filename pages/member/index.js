@@ -1,11 +1,11 @@
 import Sidebar from "../../components/organisms/Sidebar";
-import MemberOverview from "../../components/organisms/MemberOverview";
+import OverviewContent from "../../components/organisms/OverviewContent";
 
 export default function Member() {
   return (
     <section className="overview overflow-auto">
       <Sidebar />
-      <MemberOverview />
+      <OverviewContent />
     </section>
   );
 }

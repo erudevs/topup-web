@@ -1,23 +1,19 @@
 import PropTypes from "prop-types";
+import cx from "classnames";
+import Link from "next/link";
 
-export default function TransactionBodyItem({
-  className, itemImage, itemName, itemCategory, itemAmount, itemTotal, itemStatus,
+export default function TableRowTransaction({
+  className, itemImage, itemName, itemCategory, itemAmount, itemTotal, itemStatus, itemDetail,
 }) {
-  const getStatus = (status) => {
-    switch (status) {
-      case "Pending":
-        return "pending";
-      case "Failed":
-        return "failed";
-      case "Success":
-        return "success";
-      default:
-        return "pending";
-    }
-  };
+  const statusClass = cx({
+    "float-start icon-status": true,
+    pending: itemStatus === "Pending",
+    failed: itemStatus === "Failed",
+    success: itemStatus === "Success",
+  });
 
   return (
-    <tr className={`${className}`}>
+    <tr className={className}>
       <th scope="row">
         <img
           className="float-start me-3 mb-lg-0 mb-3"
@@ -41,17 +37,28 @@ export default function TransactionBodyItem({
       </td>
       <td>
         <div>
-          <span className={`float-start icon-status ${getStatus(itemStatus)}`}></span>
+          <span className={statusClass}></span>
           <p className="fw-medium text-start color-palette-1 m-0 position-relative">
             {itemStatus}
           </p>
         </div>
       </td>
+      {itemDetail && (
+        <td>
+          <Link href="/member/transactions/detail">
+            <a
+              className="btn btn-status rounded-pill text-sm"
+            >
+              Details
+            </a>
+          </Link>
+        </td>
+      )}
     </tr>
   );
 }
 
-TransactionBodyItem.propTypes = {
+TableRowTransaction.propTypes = {
   className: PropTypes.string.isRequired,
   itemImage: PropTypes.string.isRequired,
   itemName: PropTypes.string.isRequired,
@@ -59,4 +66,9 @@ TransactionBodyItem.propTypes = {
   itemAmount: PropTypes.string.isRequired,
   itemTotal: PropTypes.string.isRequired,
   itemStatus: PropTypes.string.isRequired,
+  itemDetail: PropTypes.bool,
+};
+
+TableRowTransaction.defaultProps = {
+  itemDetail: false,
 };

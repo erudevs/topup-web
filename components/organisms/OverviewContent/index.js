@@ -1,5 +1,5 @@
 import OverviewTransaction from "../OverviewTransaction";
-import OverviewTopUp from "../OverviewTopUp";
+import OverviewTopUp from "./OverviewTopUp";
 
 export default function index() {
   return (
