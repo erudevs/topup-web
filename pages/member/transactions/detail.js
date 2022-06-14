@@ -1,5 +1,5 @@
 import Sidebar from "../../../components/organisms/Sidebar";
-import TransactionsDetailContent from "../../../components/TransactionsDetailContent";
+import TransactionsDetailContent from "../../../components/organisms/TransactionsDetailContent";
 
 export default function TransactionDetail() {
   return (

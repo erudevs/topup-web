@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { formatNumber } from "../../utils";
+import { formatNumber } from "../../../utils";
 
 export default function DetailRow(props) {
   const { label, value, className } = props;

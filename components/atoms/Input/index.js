@@ -49,6 +49,6 @@ Input.propTypes = {
 
 Input.defaultProps = {
   inputName: "name",
-  inputType: "Text",
+  inputType: "text",
   inputPlaceholder: "Enter placeholder",
 };
