@@ -3,15 +3,17 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 
 export default function GameItem(props) {
-  const { thumbnail, title, category } = props;
+  const {
+    thumbnail, title, category, id,
+  } = props;
   return (
     <div className="featured-game-card position-relative">
-      <Link href="/detail">
+      <Link href={`/detail/${id}`}>
         <a>
           <div className="blur-sharp">
             <img
               className="thumbnail"
-              src={`/img/${thumbnail}.png`}
+              src={thumbnail}
               width={205}
               height={270}
               alt=""
@@ -35,6 +37,7 @@ export default function GameItem(props) {
 }
 
 GameItem.propTypes = {
+  id: PropTypes.string.isRequired,
   thumbnail: PropTypes.string,
   title: PropTypes.string,
   category: PropTypes.string,

@@ -48,5 +48,4 @@ const formatNumber = new Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export { getItemMenu, formatNumber };

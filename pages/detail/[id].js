@@ -1,8 +1,39 @@
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
 import DetailTopUpForm from "../../components/organisms/DetailTopUpForm";
 import DetailTopUpItem from "../../components/organisms/DetailTopUpItem";
 import Layout from "../../components/organisms/Layout";
+import { getAPIDetailVoucher } from "../../services/playerService";
 
 export default function Detail() {
+  const { query, isReady } = useRouter();
+  const [dataItem, setDataItem] = useState({
+    name: "",
+    thumbnail: "",
+    category: {
+      name: "",
+    },
+  });
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
+
+  const getVoucherDetail = useCallback(async (id) => {
+    const data = await getAPIDetailVoucher(id);
+    setDataItem(data.detail);
+    setNominals(data.detail.nominals);
+    setPayments(data.payment);
+  }, [getAPIDetailVoucher]);
+
+  useEffect(() => {
+    if (isReady) {
+      getVoucherDetail(query.id);
+    } else {
+      console.log("router tidak tersedia");
+    }
+  }, [isReady]);
+
+  const IMAGE_API = process.env.NEXT_PUBLIC_IMAGE;
+
   return (
     <Layout>
       <section className="detail pt-lg-60 pb-50">
@@ -16,7 +47,7 @@ export default function Detail() {
               <div className="row align-items-center">
                 <div className="col-md-12 col-4">
                   <img
-                    src="/img/Thumbnail-3.png"
+                    src={`${IMAGE_API}/${dataItem.thumbnail}`}
                     width="280"
                     height="380"
                     className="img-fluid"
@@ -24,14 +55,14 @@ export default function Detail() {
                   />
                 </div>
                 {/* Mobile: Game title */}
-                <DetailTopUpItem isMobile />
+                <DetailTopUpItem data={dataItem} isMobile />
               </div>
             </div>
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
               {/* Desktop: Game title */}
-              <DetailTopUpItem />
+              <DetailTopUpItem data={dataItem} />
               <hr />
-              <DetailTopUpForm />
+              <DetailTopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>

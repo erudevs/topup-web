@@ -1,11 +1,81 @@
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import cx from "classnames";
 
 export default function SignUpForm() {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const className = {
+    label: cx("form-label text-lg fw-medium color-palette-1 mb-10"),
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (name === "" || phoneNumber === "" || username === "" || email === "" || password === "") {
+      toast.error("Harap untuk mengisi semua form!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    if (username.length < 9) {
+      toast.error("Panjang username antara 9 - 13 karakter", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    const userForm = {
+      name,
+      phoneNumber,
+      username,
+      email,
+      password,
+    };
+    localStorage.setItem("user-form", JSON.stringify(userForm));
+    router.push("/sign-up-photo");
+  };
+
   return (
     <>
+      <ToastContainer />
       <div className="pt-50">
-        <label htmlFor="name" className="form-label text-lg fw-medium color-palette-1 mb-10">
-          Full Name
+        <label htmlFor="username" className={className.label}>
+          Username
+        </label>
+        <input
+          type="text"
+          className="form-control rounded-pill text-lg"
+          id="username"
+          name="username"
+          aria-describedby="username"
+          placeholder="Masukkan username Anda..."
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div className="pt-30">
+        <label htmlFor="name" className={className.label}>
+          Nama Lengkap
         </label>
         <input
           type="text"
@@ -13,12 +83,29 @@ export default function SignUpForm() {
           id="name"
           name="name"
           aria-describedby="name"
-          placeholder="Enter your name"
+          placeholder="Masukkan nama lengkap Anda..."
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className="pt-30">
-        <label htmlFor="email" className="form-label text-lg fw-medium color-palette-1 mb-10">
-          Email Address
+        <label htmlFor="number" className={className.label}>
+          Nomor Telepon
+        </label>
+        <input
+          type="number"
+          className="form-control rounded-pill text-lg"
+          id="number"
+          name="phoneNumber"
+          aria-describedby="number"
+          placeholder="Masukkan nomor telepon Anda..."
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+      </div>
+      <div className="pt-30">
+        <label htmlFor="email" className={className.label}>
+          Alamat Email
         </label>
         <input
           type="email"
@@ -26,13 +113,15 @@ export default function SignUpForm() {
           id="email"
           name="email"
           aria-describedby="email"
-          placeholder="Enter your email address"
+          placeholder="Masukkan alamat email Anda..."
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="pt-30">
         <label
           htmlFor="password"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
+          className={className.label}
         >
           Password
         </label>
@@ -42,18 +131,19 @@ export default function SignUpForm() {
           id="password"
           name="password"
           aria-describedby="password"
-          placeholder="Your password"
+          placeholder="Masukkan kata sandi..."
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div className="button-group d-flex flex-column mx-auto pt-50">
-        <Link href="/sign-up-photo">
-          <a
-            className="btn btn-sign-up fw-medium text-lg text-white rounded-pill mb-16"
-            role="button"
-          >
-            Continue
-          </a>
-        </Link>
+        <button
+          type="button"
+          className="btn btn-sign-up fw-medium text-lg text-white rounded-pill mb-16"
+          onClick={onSubmit}
+        >
+          Continue
+        </button>
         <Link href="/sign-in">
           <a
             className="btn btn-sign-in fw-medium text-lg color-palette-1 rounded-pill"
