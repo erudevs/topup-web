@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
 import { getAPICategory } from "../services/playerService";
 import { setSignUp } from "../services/authService";
 
 export default function SignUpPhoto() {
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
   const [image, setImage] = useState("");
@@ -38,8 +41,6 @@ export default function SignUpPhoto() {
   }, []);
 
   const onSubmit = async () => {
-    console.log("favorite: ", favorite);
-    console.log("image: ", image);
     const getLocalForm = await localStorage.getItem("user-form");
     const userLocal = JSON.parse(getLocalForm);
 
@@ -55,11 +56,29 @@ export default function SignUpPhoto() {
     data.append("favorite", favorite);
 
     const result = await setSignUp(data);
-    console.log(result);
+    if (result?.error === 1 || result?.status === 400) {
+      toast.error(result.data.message);
+      return;
+    }
+
+    toast.success("Pendaftaran berhasil");
+    router.push("/sign-up-success");
+    localStorage.removeItem("user-form");
   };
 
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+      />
       <div className="container mx-auto">
         <form action="">
           <div className="form-input d-md-block d-flex flex-column">
@@ -82,8 +101,8 @@ export default function SignUpPhoto() {
                   />
                 </div>
               </div>
-              <h2 className="fw-bold text-xl text-center color-palette-1 m-0 text-capitalize">{localForm.name}</h2>
-              <p className="text-lg text-center color-palette-1 m-0">{localForm.email}</p>
+              <h2 className="fw-bold text-xl text-center color-palette-1 m-0 text-capitalize">{localForm?.name ? localForm.name : "yourname"}</h2>
+              <p className="text-lg text-center color-palette-1 m-0">{localForm?.email ? localForm.email : "your@email.com"}</p>
               <div className="pt-50 pb-50">
                 <label
                   htmlFor="category"

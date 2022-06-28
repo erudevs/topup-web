@@ -2,7 +2,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import cx from "classnames";
 
 export default function SignUpForm() {
@@ -20,30 +19,10 @@ export default function SignUpForm() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (name === "" || phoneNumber === "" || username === "" || email === "" || password === "") {
-      toast.error("Harap untuk mengisi semua form!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error("Harap untuk mengisi semua form!");
       return;
     }
 
-    if (username.length < 9) {
-      toast.error("Panjang username antara 9 - 13 karakter", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      return;
-    }
     const userForm = {
       name,
       phoneNumber,
@@ -57,7 +36,17 @@ export default function SignUpForm() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+      />
       <div className="pt-50">
         <label htmlFor="username" className={className.label}>
           Username
