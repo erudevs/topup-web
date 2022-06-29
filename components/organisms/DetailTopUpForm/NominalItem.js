@@ -4,7 +4,7 @@ import { formatNumber } from "../../../utils";
 
 export default function NominalItem(props) {
   const {
-    id, coinName, coinQty, price,
+    id, coinName, coinQty, price, onClick,
   } = props;
 
   return (
@@ -18,6 +18,7 @@ export default function NominalItem(props) {
         id={id}
         name="topup"
         value={id}
+        onClick={onClick}
       />
       <div className="detail-card">
         <div className="d-flex justify-content-between">
@@ -53,4 +54,5 @@ NominalItem.propTypes = {
   coinName: PropTypes.string.isRequired,
   coinQty: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

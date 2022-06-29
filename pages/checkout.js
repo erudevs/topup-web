@@ -1,9 +1,12 @@
 import Image from "next/image";
+import jwtDecode from "jwt-decode";
 import CheckoutConfirmation from "../components/organisms/CheckoutConfirmation";
 import CheckoutDetail from "../components/organisms/CheckoutDetail";
 import CheckoutItem from "../components/organisms/CheckoutItem";
 
 export default function Checkout() {
+  // eslint-disable-next-line react/prop-types
+  // const { user } = props;
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -23,4 +26,28 @@ export default function Checkout() {
       </div>
     </section>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const { tkn } = req.cookies;
+
+  if (!tkn) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const decodedToken = Buffer.from(tkn, "base64").toString("ascii");
+  const dataFromPayload = jwtDecode(decodedToken);
+  const img = process.env.NEXT_PUBLIC_IMAGE;
+  dataFromPayload.avatar = `${dataFromPayload.avatar === "" ? "/img/profile-placeholder.jpg" : `${img}/${dataFromPayload.avatar}`}`;
+
+  return {
+    props: {
+      user: dataFromPayload,
+    },
+  };
 }

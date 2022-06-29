@@ -1,31 +1,42 @@
-import axios from "axios";
+import callAPI from "../config/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API;
 const API_VERSION = "api/v1";
 
 export async function getAPIFeaturedGame() {
-  const URL = "players/landingpage";
+  const url = `${API_URL}/${API_VERSION}/players/landingpage`;
 
-  const response = await axios.get(`${API_URL}/${API_VERSION}/${URL}`);
-  const axiosResponse = response.data;
-
-  return axiosResponse.data;
+  return callAPI({
+    url,
+    method: "GET",
+  });
 }
 
 export async function getAPIDetailVoucher(id) {
-  const URL = `players/${id}/detail`;
+  const url = `${API_URL}/${API_VERSION}/players/${id}/detail`;
 
-  const response = await axios.get(`${API_URL}/${API_VERSION}/${URL}`);
-  const axiosResponse = response.data;
-
-  return axiosResponse.data;
+  return callAPI({
+    url,
+    method: "GET",
+  });
 }
 
 export async function getAPICategory() {
-  const URL = "players/category";
+  const url = `${API_URL}/${API_VERSION}/players/category`;
 
-  const response = await axios.get(`${API_URL}/${API_VERSION}/${URL}?_sort=name&_order=ASC`);
-  const axiosResponse = response.data;
+  return callAPI({
+    url,
+    method: "GET",
+  });
+}
 
-  return axiosResponse.data;
+export async function setCheckout(data) {
+  const url = `${API_URL}/${API_VERSION}/players/checkout`;
+
+  return callAPI({
+    url,
+    method: "POST",
+    data,
+    token: true,
+  });
 }

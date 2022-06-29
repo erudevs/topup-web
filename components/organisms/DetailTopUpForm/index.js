@@ -1,11 +1,46 @@
 /* eslint-disable react/forbid-prop-types */
-import Link from "next/link";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
 export default function DetailTopUpForm(props) {
+  const router = useRouter();
   const { nominals, payments } = props;
+  const [verifyID, setVerifyID] = useState("");
+  const [bankAccountName, setBankAccountName] = useState("");
+  const [nominalItem, setNominalItem] = useState({});
+  const [paymentItem, setPaymentItem] = useState({});
+
+  const onNominalItemClick = (data) => {
+    setNominalItem(data);
+  };
+
+  const onPaymentItemClick = (payment, bank) => {
+    const data = {
+      payment,
+      bank,
+    };
+    setPaymentItem(data);
+  };
+
+  const onSubmit = () => {
+    if (verifyID === "" || bankAccountName === "" || nominalItem === {} || paymentItem === {}) {
+      toast.error("Harap untuk mengisi semua data!");
+      return;
+    }
+
+    const data = {
+      verifyID,
+      bankAccountName,
+      nominalItem,
+      paymentItem,
+    };
+    localStorage.setItem("data-topup", JSON.stringify(data));
+    router.push("/checkout");
+  };
 
   return (
     <form action="./checkout.html" method="POST">
@@ -24,6 +59,8 @@ export default function DetailTopUpForm(props) {
             name="ID"
             aria-describedby="verifyID"
             placeholder="Enter your ID"
+            value={verifyID}
+            onChange={(e) => setVerifyID(e.target.value)}
           />
         </div>
       </div>
@@ -37,6 +74,7 @@ export default function DetailTopUpForm(props) {
               coinName={nominal.coinName}
               coinQty={nominal.coinQty}
               price={nominal.price}
+              onClick={() => onNominalItemClick(nominal)}
             />
           ))}
           <div className="col-lg-4 col-sm-6">{/* Blank */}</div>
@@ -52,6 +90,7 @@ export default function DetailTopUpForm(props) {
                 bankID={bank._id}
                 paymentType={payment.paymentType}
                 bankName={bank.bankName}
+                onClick={() => onPaymentItemClick(payment, bank)}
               />
             )))}
             <div className="col-lg-4 col-sm-6">{/* Blank */}</div>
@@ -72,17 +111,18 @@ export default function DetailTopUpForm(props) {
           name="bankAccount"
           aria-describedby="bankAccount"
           placeholder="Enter your Bank Account Name"
+          value={bankAccountName}
+          onChange={(e) => setBankAccountName(e.target.value)}
         />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
-        <Link href="/checkout">
-          <a
-            type="submit"
-            className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"
-          >
-            Continue
-          </a>
-        </Link>
+        <button
+          type="button"
+          className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"
+          onClick={onSubmit}
+        >
+          Continue
+        </button>
       </div>
     </form>
   );

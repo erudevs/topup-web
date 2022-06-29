@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function PaymentItem(props) {
-  const { bankID, paymentType, bankName } = props;
+  const {
+    bankID, paymentType, bankName, onClick,
+  } = props;
   return (
     <label
       className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
@@ -14,6 +16,7 @@ export default function PaymentItem(props) {
         id={bankID}
         name="paymentMethod"
         value={bankID}
+        onClick={onClick}
       />
       <div className="detail-card">
         <div className="d-flex justify-content-between">
@@ -46,4 +49,5 @@ PaymentItem.propTypes = {
   bankID: PropTypes.string.isRequired,
   paymentType: PropTypes.string.isRequired,
   bankName: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

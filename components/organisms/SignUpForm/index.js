@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import cx from "classnames";
 
 export default function SignUpForm() {
@@ -36,17 +36,6 @@ export default function SignUpForm() {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-      />
       <div className="pt-50">
         <label htmlFor="username" className={className.label}>
           Username

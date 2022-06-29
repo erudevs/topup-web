@@ -248,7 +248,7 @@ export default function CompleteCheckout() {
         <div className="button-group d-flex flex-column mx-auto">
           <a
             className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-            href="../member/overview.html"
+            href="/member/overview"
             role="button"
           >
             My Dashboard

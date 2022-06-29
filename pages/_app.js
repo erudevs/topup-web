@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import Script from "next/script";
+import { ToastContainer } from "react-toastify";
 import "../styles/homepage.css";
 import "../styles/utilities.css";
 import "../styles/detail.css";
@@ -28,6 +29,17 @@ function MyApp({ Component, pageProps }) {
         crossOrigin="anonymous"
       >
       </Script>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+      />
       <Component {...pageProps} />
     </>
   );

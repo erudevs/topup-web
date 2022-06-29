@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 import { setLogin } from "../../../services/authService";
 
 export default function SignInForm() {
@@ -23,6 +24,10 @@ export default function SignInForm() {
         toast.error(result.message);
       } else {
         toast.success("Login berhasil");
+        const { token } = result.data;
+        const tokenBase64 = btoa(token);
+        const inHalfADay = 0.5;
+        Cookies.set("tkn", tokenBase64, { expires: inHalfADay });
         router.push("/");
       }
     }
@@ -30,17 +35,6 @@ export default function SignInForm() {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-      />
       <div className="pt-50">
         <label
           htmlFor="email"

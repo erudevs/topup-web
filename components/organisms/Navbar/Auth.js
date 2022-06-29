@@ -1,8 +1,34 @@
-import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 
-export default function Auth(props) {
-  const { isLogin } = props;
+export default function Auth() {
+  const router = useRouter();
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState({
+    avatar: "",
+  });
+
+  useEffect(() => {
+    const token = Cookies.get("tkn");
+    if (token) {
+      const decodedToken = atob(token);
+      const dataFromPayload = jwtDecode(decodedToken);
+      const img = process.env.NEXT_PUBLIC_IMAGE;
+      dataFromPayload.avatar = `${dataFromPayload.avatar === "" ? "/img/profile-placeholder.jpg" : `${img}/${dataFromPayload.avatar}`}`;
+      setIsLogin(true);
+      setUser(dataFromPayload);
+    }
+  }, []);
+
+  const onLogoutHandler = () => {
+    Cookies.remove("tkn");
+    setIsLogin(false);
+    router.push("/");
+  };
+
   if (isLogin) {
     return (
       <li className="nav-item my-auto dropdown d-flex">
@@ -10,14 +36,14 @@ export default function Auth(props) {
         <div>
           <Link href="#">
             <a
-              className="dropdown-toggle ms-lg-40"
+              className="dropdown-toggle ms-lg-40 avatar"
               role="button"
               id="dropdownMenuLink"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <img
-                src="/img/avatar-1.png"
+                src={user.avatar}
                 className="rounded-circle"
                 width="40"
                 height="40"
@@ -43,9 +69,13 @@ export default function Auth(props) {
               </Link>
             </li>
             <li>
-              <Link href="/sign-in">
-                <a className="dropdown-item text-lg color-palette-2">Log Out</a>
-              </Link>
+              <button
+                type="button"
+                className="dropdown-item text-lg color-palette-2"
+                onClick={onLogoutHandler}
+              >
+                Log Out
+              </button>
             </li>
           </ul>
         </div>
@@ -65,11 +95,3 @@ export default function Auth(props) {
     </li>
   );
 }
-
-Auth.propTypes = {
-  isLogin: PropTypes.bool,
-};
-
-Auth.defaultProps = {
-  isLogin: false,
-};
