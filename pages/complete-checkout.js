@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CompleteCheckout() {
   return (
     <section className="complete-checkout mx-auto pt-lg-145 pb-lg-145 pt-100 pb-80">
@@ -246,20 +248,23 @@ export default function CompleteCheckout() {
           </p>
         </div>
         <div className="button-group d-flex flex-column mx-auto">
-          <a
-            className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-            href="/member/overview"
-            role="button"
-          >
-            My Dashboard
-          </a>
-          <a
-            className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
-            href="#"
-            role="button"
-          >
-            WhatsApp ke Admin
-          </a>
+          <Link href="/member">
+            <a
+              className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
+              role="button"
+            >
+              My Dashboard
+            </a>
+          </Link>
+          <Link href="https://wa.me/6282116529263?text=Saya%20sudah%20melakukan%20pembayaran">
+            <a
+              className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
+              role="button"
+              target="_blank"
+            >
+              WhatsApp ke Admin
+            </a>
+          </Link>
         </div>
       </div>
     </section>

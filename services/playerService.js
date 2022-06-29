@@ -30,13 +30,23 @@ export async function getAPICategory() {
   });
 }
 
-export async function setCheckout(data) {
+export async function setAPICheckout(data) {
   const url = `${API_URL}/${API_VERSION}/players/checkout`;
 
   return callAPI({
     url,
     method: "POST",
     data,
+    token: true,
+  });
+}
+
+export async function getAPIMemberOverview() {
+  const url = `${API_URL}/${API_VERSION}/players/dashboard`;
+
+  return callAPI({
+    url,
+    method: "GET",
     token: true,
   });
 }

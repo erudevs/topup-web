@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Link from "next/link";
+import { formatNumber } from "../../../utils";
 
-export default function TableRowTransaction({
+export default function OverviewTableRow({
   className, itemImage, itemName, itemCategory, itemAmount, itemTotal, itemStatus, itemDetail,
 }) {
   const statusClass = cx({
     "float-start icon-status": true,
-    pending: itemStatus === "Pending",
-    failed: itemStatus === "Failed",
-    success: itemStatus === "Success",
+    pending: itemStatus === "pending",
+    failed: itemStatus === "failed",
+    success: itemStatus === "success",
   });
 
   return (
@@ -17,28 +18,28 @@ export default function TableRowTransaction({
       <th scope="row">
         <img
           className="float-start me-3 mb-lg-0 mb-3"
-          src={`/img/${itemImage}.png`}
+          src={itemImage === "" ? "/img/game-placeholder.jpg" : itemImage}
           width="80"
           height="60"
           alt=""
         />
         <div className="game-title-header">
-          <p className="game-title fw-medium text-start color-palette-1 m-0">
+          <p className="game-title fw-medium text-start color-palette-1 m-0 text-capitalize">
             {itemName}
           </p>
-          <p className="text-xs fw-normal text-start color-palette-2 m-0">{itemCategory}</p>
+          <p className="text-xs fw-normal text-start color-palette-2 m-0 text-capitalize">{itemCategory}</p>
         </div>
       </th>
       <td>
-        <p className="fw-medium text-start color-palette-1 m-0">{itemAmount} Gold</p>
+        <p className="fw-medium text-start color-palette-1 m-0">{itemAmount}</p>
       </td>
       <td>
-        <p className="fw-medium text-start color-palette-1 m-0">Rp {itemTotal}</p>
+        <p className="fw-medium text-start color-palette-1 m-0">{formatNumber.format(itemTotal)}</p>
       </td>
       <td>
         <div>
           <span className={statusClass}></span>
-          <p className="fw-medium text-start color-palette-1 m-0 position-relative">
+          <p className="fw-medium text-start color-palette-1 m-0 position-relative text-capitalize">
             {itemStatus}
           </p>
         </div>
@@ -58,7 +59,7 @@ export default function TableRowTransaction({
   );
 }
 
-TableRowTransaction.propTypes = {
+OverviewTableRow.propTypes = {
   className: PropTypes.string.isRequired,
   itemImage: PropTypes.string.isRequired,
   itemName: PropTypes.string.isRequired,
@@ -69,6 +70,6 @@ TableRowTransaction.propTypes = {
   itemDetail: PropTypes.bool,
 };
 
-TableRowTransaction.defaultProps = {
+OverviewTableRow.defaultProps = {
   itemDetail: false,
 };

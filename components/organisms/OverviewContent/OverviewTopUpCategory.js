@@ -1,7 +1,8 @@
 import Image from "next/image";
 import PropTypes from "prop-types";
+import { formatNumber } from "../../../utils";
 
-export default function OverviewTopUpItem(props) {
+export default function OverviewTopUpCategory(props) {
   const { itemIcon, children, itemSpentTotal } = props;
   return (
     <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
@@ -14,15 +15,15 @@ export default function OverviewTopUpItem(props) {
         </div>
         <div>
           <p className="text-sm color-palette-2 mb-1">Total Spent</p>
-          <p className="text-2xl color-palette-1 fw-medium m-0">Rp {itemSpentTotal}</p>
+          <p className="text-2xl color-palette-1 fw-medium m-0">{formatNumber.format(itemSpentTotal)}</p>
         </div>
       </div>
     </div>
   );
 }
 
-OverviewTopUpItem.propTypes = {
+OverviewTopUpCategory.propTypes = {
   itemIcon: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  itemSpentTotal: PropTypes.string.isRequired,
+  itemSpentTotal: PropTypes.number.isRequired,
 };

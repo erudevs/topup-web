@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { setCheckout } from "../../../services/playerService";
+import { setAPICheckout } from "../../../services/playerService";
 
 export default function CheckoutConfirmation() {
   const router = useRouter();
@@ -28,9 +28,9 @@ export default function CheckoutConfirmation() {
       userAccount: dataTopup.verifyID,
     };
 
-    const result = await setCheckout(data);
+    const result = await setAPICheckout(data);
     if (result.error) {
-      toast.error("Anda harus login untuk melakukan checkout");
+      toast.error(result.message);
     } else {
       toast.success("Checkout berhasil, pesanan Anda akan diproses");
       router.push("/complete-checkout");
