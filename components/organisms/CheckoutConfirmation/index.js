@@ -34,6 +34,7 @@ export default function CheckoutConfirmation() {
     } else {
       toast.success("Checkout berhasil, pesanan Anda akan diproses");
       router.push("/complete-checkout");
+      localStorage.clear();
     }
   };
 

@@ -11,7 +11,9 @@ import SettingIcon from "../../atoms/SettingIcon";
 import TransactionIcon from "../../atoms/TransactionIcon";
 
 export default function SidebarMenuItem(props) {
-  const { menuTitle, menuLink, isActive } = props;
+  const {
+    menuTitle, menuLink, isActive, onClick,
+  } = props;
 
   const classItem = cx({
     item: true,
@@ -41,14 +43,21 @@ export default function SidebarMenuItem(props) {
   };
 
   return (
-    <div className={classItem}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className={classItem} onClick={onClick}>
       {getIconName(menuTitle)}
       <p className="item-title m-0">
-        <Link href={`${menuLink}`}>
-          <a className="text-lg text-decoration-none" role="link">
+        {onClick ? (
+          <a className="text-lg text-decoration-none" style={{ cursor: "pointer" }} role="link">
             {menuTitle}
           </a>
-        </Link>
+        ) : (
+          <Link href={`${menuLink}`}>
+            <a className="text-lg text-decoration-none">
+              {menuTitle}
+            </a>
+          </Link>
+        )}
       </p>
     </div>
   );
@@ -57,9 +66,12 @@ export default function SidebarMenuItem(props) {
 SidebarMenuItem.propTypes = {
   menuTitle: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
-  menuLink: PropTypes.string.isRequired,
+  menuLink: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 SidebarMenuItem.defaultProps = {
   isActive: false,
+  menuLink: "",
+  onClick: null,
 };

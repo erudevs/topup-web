@@ -40,13 +40,3 @@ export async function setAPICheckout(data) {
     token: true,
   });
 }
-
-export async function getAPIMemberOverview() {
-  const url = `${API_URL}/${API_VERSION}/players/dashboard`;
-
-  return callAPI({
-    url,
-    method: "GET",
-    token: true,
-  });
-}

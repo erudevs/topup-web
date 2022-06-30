@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { getAPIMemberOverview } from "../../../services/playerService";
+import { getAPIMemberOverview } from "../../../services/memberService";
 import OverviewTableRow from "./OverviewTableRow";
 import OverviewTopUpCategory from "./OverviewTopUpCategory";
 
@@ -12,7 +12,6 @@ export default function index() {
     if (result.error) {
       toast.error(result.message);
     } else {
-      console.log(result);
       setCount(result.data.count);
       setData(result.data.history);
     }
@@ -32,21 +31,28 @@ export default function index() {
           <p className="text-lg fw-medium color-palette-1 mb-14">Top Up Categories</p>
           <div className="main-content">
             <div className="row">
-              {count.map((item) => (
+              {count.length > 0 ? count.map((item) => (
                 <OverviewTopUpCategory key={item._id} itemIcon={`${item.name.toLowerCase()}-game-icon`} itemSpentTotal={item.value}>
                   Game <br /> {item.name}
                 </OverviewTopUpCategory>
-              ))}
+              )) : (
+                <div className="text-center categories-card">
+                  <p>Anda belum mempunyai transaksi.
+                    Ayo segera buat untuk meningkatkan permainan Anda.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
         <div className="latest-transaction">
           <p className="text-lg fw-medium color-palette-1 mb-14">Latest Transactions</p>
           <div className="main-content main-content-table overflow-auto">
-            <table className="table table-borderless">
+            <table className="table">
               <thead>
                 <tr className="color-palette-1">
-                  <th className="text-start" scope="col">
+                  <th>No.</th>
+                  <th scope="col">
                     Game
                   </th>
                   <th scope="col">Item</th>
@@ -55,8 +61,9 @@ export default function index() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
+                {data.length > 0 ? data.map((item, i) => (
                   <OverviewTableRow
+                    nbr={i + 1}
                     key={item._id}
                     className="align-middle"
                     itemImage={`${IMG}/${item.historyVoucherTopup.thumbnail}`}
@@ -66,7 +73,16 @@ export default function index() {
                     itemTotal={item.value}
                     itemStatus={item.status}
                   />
-                ))}
+                )) : (
+                  <tr>
+                    <td colSpan={5}>
+                      <div className="text-center categories-card mt-20">
+                        <p>Belum ada data transaksi untuk ditampilkan :(
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

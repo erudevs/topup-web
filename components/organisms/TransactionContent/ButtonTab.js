@@ -2,7 +2,7 @@ import cx from "classnames";
 import PropTypes from "prop-types";
 
 export default function ButtonTab(props) {
-  const { btnName, active } = props;
+  const { btnName, active, onClick } = props;
 
   const btnClass = cx({
     "btn btn-status rounded-pill text-sm me-3": true,
@@ -10,19 +10,20 @@ export default function ButtonTab(props) {
   });
 
   return (
-    <a
-      data-filter="*"
-      href="#"
+    <button
+      type="button"
+      onClick={onClick}
       className={btnClass}
     >
       {btnName}
-    </a>
+    </button>
   );
 }
 
 ButtonTab.propTypes = {
   btnName: PropTypes.string.isRequired,
   active: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
 };
 
 ButtonTab.defaultProps = {
