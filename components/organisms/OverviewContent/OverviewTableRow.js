@@ -4,7 +4,16 @@ import Link from "next/link";
 import { formatNumber } from "../../../utils";
 
 export default function OverviewTableRow({
-  className, itemImage, itemName, itemCategory, itemAmount, itemTotal, itemStatus, itemDetail, nbr,
+  className,
+  itemImage,
+  itemName,
+  itemCategory,
+  itemAmount,
+  itemTotal,
+  itemStatus,
+  itemDetail,
+  nbr,
+  id,
 }) {
   const statusClass = cx({
     "float-start icon-status": true,
@@ -60,12 +69,9 @@ export default function OverviewTableRow({
       </td>
       {itemDetail && (
         <td>
-          <Link href="/member/transactions/detail">
+          <Link href={`/member/transactions/${id}`}>
             <a
               className="btn btn-sm btn-status rounded-pill text-sm"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Detail"
             >
               Detail
             </a>
@@ -86,9 +92,11 @@ OverviewTableRow.propTypes = {
   itemStatus: PropTypes.string.isRequired,
   itemDetail: PropTypes.bool,
   nbr: PropTypes.number,
+  id: PropTypes.string,
 };
 
 OverviewTableRow.defaultProps = {
   itemDetail: false,
   nbr: 0,
+  id: "",
 };

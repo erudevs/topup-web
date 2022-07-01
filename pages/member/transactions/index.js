@@ -1,4 +1,3 @@
-import jwtDecode from "jwt-decode";
 import Sidebar from "../../../components/organisms/Sidebar";
 import TransactionContent from "../../../components/organisms/TransactionContent";
 
@@ -23,14 +22,7 @@ export async function getServerSideProps({ req }) {
     };
   }
 
-  const decodedToken = Buffer.from(tkn, "base64").toString("ascii");
-  const dataFromPayload = jwtDecode(decodedToken);
-  const img = process.env.NEXT_PUBLIC_IMAGE;
-  dataFromPayload.avatar = `${dataFromPayload.avatar === "" ? "/img/profile-placeholder.jpg" : `${img}/${dataFromPayload.avatar}`}`;
-
   return {
-    props: {
-      user: dataFromPayload,
-    },
+    props: {},
   };
 }

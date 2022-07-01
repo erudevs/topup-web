@@ -30,7 +30,7 @@ export default function Sidebar() {
           <SidebarMenuItem
             menuTitle="Settings"
             menuLink="/member/edit-profile"
-            isActive={router.pathname === "/member/settings"}
+            isActive={router.pathname === "/member/edit-profile"}
           />
           <SidebarMenuItem
             menuTitle="Log Out"

@@ -39,7 +39,7 @@
   height: 0;
 }
 
-.edit-profile input[type="tel"],
+.edit-profile input[type="number"],
 .edit-profile input[type="email"],
 .edit-profile input[type="text"] {
   border: 1px solid #0c145a;
@@ -48,13 +48,13 @@
   max-width: 467px;
 }
 
-.edit-profile input[type="tel"]:focus-within,
+.edit-profile input[type="number"]:focus-within,
 .edit-profile input[type="email"]:focus-within,
 .edit-profile input[type="text"]:focus-within {
   color: #0c145a;
 }
 
-.edit-profile input[type="tel"]::placeholder,
+.edit-profile input[type="number"]::placeholder,
 .edit-profile input[type="email"]::placeholder,
 .edit-profile input[type="text"]::placeholder {
   color: #ccd0dd;
@@ -67,4 +67,10 @@
 
 .edit-profile .button-group {
   max-width: 467px;
+}
+
+.upload-icon {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
 }

@@ -14,7 +14,7 @@ export default function Profile() {
       const decodedToken = Buffer.from(token, "base64").toString("ascii");
       const dataFromPayload = jwtDecode(decodedToken);
       const img = process.env.NEXT_PUBLIC_IMAGE;
-      dataFromPayload.avatar = `${dataFromPayload.avatar === "" ? "/img/profile-placeholder.jpg" : `${img}/${dataFromPayload.avatar}`}`;
+      dataFromPayload.avatar = `${dataFromPayload.avatar === "null" ? "/img/profile-placeholder.jpg" : `${img}/${dataFromPayload.avatar}`}`;
       setUser(dataFromPayload);
     }
   }, []);

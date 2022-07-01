@@ -1,13 +1,14 @@
 /* Sign-in */
-.avatar {
+.avatar-upload {
   width: 120px;
   height: 120px;
   overflow: hidden;
   border-radius: 50%;
 }
 
-.avatar img {
+.avatar-upload img {
   object-fit: cover;
+  width: 100%;
 }
 
 .sign-up-photo .image-upload > input {

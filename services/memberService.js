@@ -28,3 +28,24 @@ export async function getAPIMemberTransaction(status) {
     token: true,
   });
 }
+
+export async function getAPIMemberTransactionDetail(token, trxID) {
+  const url = `${API_URL}/${API_VERSION}/players/transaction/${trxID}/detail`;
+
+  return callAPI({
+    url,
+    method: "GET",
+    serverToken: token,
+  });
+}
+
+export async function updateProfile(data) {
+  const url = `${API_URL}/${API_VERSION}/players/profile`;
+
+  return callAPI({
+    url,
+    method: "PUT",
+    data,
+    token: true,
+  });
+}

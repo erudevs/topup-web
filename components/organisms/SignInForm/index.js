@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
 import { setLogin } from "../../../services/authService";
 
 export default function SignInForm() {
@@ -20,10 +21,12 @@ export default function SignInForm() {
       toast.error("Harap mengisi semua form!");
     } else {
       const result = await setLogin(data);
+      const userData = jwtDecode(result.data.token);
+      const { name } = userData;
       if (result.error) {
         toast.error(result.message);
       } else {
-        toast.success("Login berhasil");
+        toast.success(`Selamat datang kembali, ${name}`);
         const { token } = result.data;
         const tokenBase64 = btoa(token);
         const inHalfADay = 0.5;

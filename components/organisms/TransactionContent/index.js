@@ -71,6 +71,7 @@ export default function TransactionContent() {
               <tbody id="list_status_item">
                 {transactions.length > 0 ? transactions.map((transaction, i) => (
                   <OverviewTableRow
+                    id={transaction._id}
                     nbr={i + 1}
                     key={transaction._id}
                     className="align-middle"

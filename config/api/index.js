@@ -2,10 +2,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const callAPI = async ({
-  url, method, data, token = false,
+  url, method, data, token = false, serverToken,
 }) => {
   let headers = {};
-  if (token) {
+  if (serverToken) {
+    headers = {
+      Authorization: `Bearer ${serverToken}`,
+    };
+  } else if (token) {
     const tokenCookies = Cookies.get("tkn");
     if (tokenCookies) {
       const jwtToken = Buffer.from(tokenCookies, "base64").toString("ascii");

@@ -14,10 +14,10 @@ export default function Auth() {
   useEffect(() => {
     const token = Cookies.get("tkn");
     if (token) {
-      const decodedToken = atob(token);
+      const decodedToken = Buffer.from(token, "base64").toString("ascii");
       const dataFromPayload = jwtDecode(decodedToken);
-      const img = process.env.NEXT_PUBLIC_IMAGE;
-      dataFromPayload.avatar = `${dataFromPayload.avatar === "" ? "/img/profile-placeholder.jpg" : `${img}/${dataFromPayload.avatar}`}`;
+      const IMG = process.env.NEXT_PUBLIC_IMAGE;
+      dataFromPayload.avatar = `${dataFromPayload.avatar === "null" ? "/img/profile-placeholder.jpg" : `${IMG}/${dataFromPayload.avatar}`}`;
       setIsLogin(true);
       setUser(dataFromPayload);
     }

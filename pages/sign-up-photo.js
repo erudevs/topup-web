@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { getAPICategory } from "../services/playerService";
 import { setSignUp } from "../services/authService";
 
@@ -9,7 +9,7 @@ export default function SignUpPhoto() {
   const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [localForm, setLocalForm] = useState({
     name: "",
     email: "",
@@ -17,27 +17,30 @@ export default function SignUpPhoto() {
   const [imagePreview, setImagePreview] = useState("/icon/upload.svg");
 
   const getCategoryGame = useCallback(async () => {
-    const data = await getAPICategory();
-
-    const sortASCByName = data.sort((a, b) => {
-      const na = a.name.toLowerCase();
-      const nb = b.name.toLowerCase();
-      if (na < nb) {
-        return -1;
-      }
-      if (na < nb) {
-        return -1;
-      }
-      return 0;
-    });
-    setCategories(sortASCByName);
-    setFavorite(sortASCByName[0]._id);
+    const result = await getAPICategory();
+    if (result.error) {
+      toast.error(result.message);
+    } else {
+      const sortASCByName = result.data.sort((a, b) => {
+        const na = a.name.toLowerCase();
+        const nb = b.name.toLowerCase();
+        if (na < nb) {
+          return -1;
+        }
+        if (na < nb) {
+          return -1;
+        }
+        return 0;
+      });
+      setCategories(sortASCByName);
+      setFavorite(sortASCByName[0]._id);
+    }
   }, [getAPICategory]);
 
   useEffect(() => {
+    getCategoryGame();
     const getLocalForm = localStorage.getItem("user-form");
     setLocalForm(JSON.parse(getLocalForm));
-    getCategoryGame();
   }, []);
 
   const onSubmit = async () => {
@@ -56,8 +59,9 @@ export default function SignUpPhoto() {
     data.append("favorite", favorite);
 
     const result = await setSignUp(data);
+    console.log(result);
     if (result.error) {
-      toast.error(result.data.message);
+      toast.error(result.message);
       return;
     }
 
@@ -68,24 +72,13 @@ export default function SignUpPhoto() {
 
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-      />
       <div className="container mx-auto">
         <form action="">
           <div className="form-input d-md-block d-flex flex-column">
             <div>
               <div className="mb-20">
                 <div className="image-upload text-center">
-                  <label htmlFor="avatar" className="avatar">
+                  <label htmlFor="avatar" className="avatar-upload">
                     <Image src={imagePreview} width={120} height={120} alt="Upload Icon" />
                   </label>
                   <input

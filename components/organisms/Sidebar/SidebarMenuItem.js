@@ -48,11 +48,11 @@ export default function SidebarMenuItem(props) {
       {getIconName(menuTitle)}
       <p className="item-title m-0">
         {onClick ? (
-          <a className="text-lg text-decoration-none" style={{ cursor: "pointer" }} role="link">
+          <a className="text-lg text-decoration-none" style={{ cursor: "pointer" }} role="button">
             {menuTitle}
           </a>
         ) : (
-          <Link href={`${menuLink}`}>
+          <Link href={menuLink}>
             <a className="text-lg text-decoration-none">
               {menuTitle}
             </a>
