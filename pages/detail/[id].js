@@ -63,8 +63,9 @@ Detail.defaultProps = {
 
 export async function getStaticPaths() {
   const result = await getAPIFeaturedGame();
+  const { data } = result;
 
-  const paths = result.data.map((item) => ({
+  const paths = data.map((item) => ({
     params: {
       id: item._id,
     },
