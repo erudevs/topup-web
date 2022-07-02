@@ -1,13 +1,16 @@
 import jwtDecode from "jwt-decode";
 import Sidebar from "../../components/organisms/Sidebar";
 import OverviewContent from "../../components/organisms/OverviewContent";
+import Layout from "../../components/organisms/Layout";
 
 export default function Member() {
   return (
-    <section className="overview overflow-auto">
-      <Sidebar />
-      <OverviewContent />
-    </section>
+    <Layout title="Topup Web - Get a New Experience in Gaming | Profil">
+      <section className="overview overflow-auto">
+        <Sidebar />
+        <OverviewContent />
+      </section>
+    </Layout>
   );
 }
 

@@ -6,6 +6,8 @@ import FeaturedGame from "../components/organisms/FeaturedGame";
 import Reached from "../components/organisms/Reached";
 import Story from "../components/organisms/Story";
 import Layout from "../components/organisms/Layout";
+import Navbar from "../components/organisms/Navbar";
+import Footer from "../components/organisms/Footer";
 
 export default function Home() {
   useEffect(() => {
@@ -13,11 +15,13 @@ export default function Home() {
   }, []);
   return (
     <Layout>
+      <Navbar />
       <MainBanner />
       <TransactionStep />
       <FeaturedGame />
       <Reached />
       <Story />
+      <Footer />
     </Layout>
   );
 }

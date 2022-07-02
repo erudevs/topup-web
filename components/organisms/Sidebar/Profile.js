@@ -21,7 +21,7 @@ export default function Profile() {
 
   return (
     <div className="user text-center pb-50 pe-30">
-      <img style={{ borderRadius: "50%" }} src={user.avatar} width={90} height={90} className="img-fluid mb-20" alt="User Profile" />
+      <img style={{ borderRadius: "50%", background: "#ffffff", objectFit: "cover" }} src={user.avatar} width={90} height={90} className="img-fluid mb-20" alt="User Profile" />
       <h2 className="fw-bold text-xl color-palette-1 m-0 text-capitalize">{user.name}</h2>
       <p className="color-palette-2 m-0">{user.email}</p>
     </div>

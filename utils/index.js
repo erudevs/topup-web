@@ -48,4 +48,6 @@ const formatNumber = new Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-export { getItemMenu, formatNumber };
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+export { getItemMenu, formatNumber, BASE_URL };

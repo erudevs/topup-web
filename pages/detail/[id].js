@@ -1,40 +1,16 @@
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+/* eslint-disable react/forbid-prop-types */
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 import DetailTopUpForm from "../../components/organisms/DetailTopUpForm";
 import DetailTopUpItem from "../../components/organisms/DetailTopUpItem";
 import Layout from "../../components/organisms/Layout";
-import { getAPIDetailVoucher } from "../../services/playerService";
+import { getAPIDetailVoucher, getAPIFeaturedGame } from "../../services/playerService";
 
-export default function Detail() {
-  const { query, isReady } = useRouter();
-  const [dataItem, setDataItem] = useState({
-    name: "",
-    thumbnail: "",
-    category: {
-      name: "",
-    },
-  });
-  const [nominals, setNominals] = useState([]);
-  const [payments, setPayments] = useState([]);
-
-  const getVoucherDetail = useCallback(async (id) => {
-    const result = await getAPIDetailVoucher(id);
-    const { data } = result;
-    setDataItem(data.detail);
-    localStorage.setItem("data-item", JSON.stringify(data.detail));
-    setNominals(data.detail.nominals);
-    setPayments(data.payment);
-  }, [getAPIDetailVoucher]);
-
-  useEffect(() => {
-    if (isReady) {
-      getVoucherDetail(query.id);
-    } else {
-      console.log("router tidak tersedia");
-    }
-  }, [isReady]);
-
+export default function Detail({ dataItem, nominals, payments }) {
   const IMAGE_API = process.env.NEXT_PUBLIC_IMAGE;
+  useEffect(() => {
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
+  }, []);
 
   return (
     <Layout>
@@ -71,4 +47,45 @@ export default function Detail() {
       </section>
     </Layout>
   );
+}
+
+Detail.propTypes = {
+  dataItem: PropTypes.object,
+  nominals: PropTypes.array,
+  payments: PropTypes.array,
+};
+
+Detail.defaultProps = {
+  dataItem: {},
+  nominals: [],
+  payments: [],
+};
+
+export async function getStaticPaths() {
+  const result = await getAPIFeaturedGame();
+
+  const paths = result.data.map((item) => ({
+    params: {
+      id: item._id,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { id } = params;
+  const result = await getAPIDetailVoucher(id);
+  const { data } = result;
+
+  return {
+    props: {
+      dataItem: data.detail,
+      nominals: data.detail.nominals,
+      payments: data.payment,
+    },
+  };
 }

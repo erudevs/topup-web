@@ -59,7 +59,6 @@ export default function SignUpPhoto() {
     data.append("favorite", favorite);
 
     const result = await setSignUp(data);
-    console.log(result);
     if (result.error) {
       toast.error(result.message);
       return;
